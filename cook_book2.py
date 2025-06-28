@@ -75,4 +75,6 @@ cook_book = get_cook_book(file_path)
 # pprint(cook_book)
 
 cokie = get_shop_list_by_dishes(["Омлет", "Запеченный картофель"], 3)
+cokie2 = get_shop_list_by_dishes(["Кракозябра", "Макароны по флотски"], 5)
 pprint(cokie)
+pprint(cokie2)
