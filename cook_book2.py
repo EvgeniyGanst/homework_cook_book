@@ -50,6 +50,29 @@ def get_cook_book(file_path):
     cook_book = cook_book_build(blocks)
     return(cook_book)
 
+
+def get_shop_list_by_dishes(dishes, person_count, file_path=r"D:\all_homework_project\homework_cook_book\cook_book.txt"):
+    cook_books = get_cook_book(file_path)
+
+    shop_list = {}
+    for dish in dishes:
+        if dish not in cook_books:
+            print(f'Блюдо {dish} отсутствует в книге рецептов!')
+            continue
+        for ingredient in cook_books[dish]:
+            ingredient_name = ingredient["ingredient_name"]
+            measure = ingredient["measure"]
+            quantity = int(ingredient["quantity"]) * person_count
+
+            if ingredient_name in shop_list:
+                shop_list[ingredient_name][quantity] += quantity
+            else:
+                shop_list[ingredient_name] = {"quantity": quantity,"measure":measure}
+    return shop_list
+
 file_path = r"D:\all_homework_project\homework_cook_book\cook_book.txt"
 cook_book = get_cook_book(file_path)
-pprint(cook_book)
+# pprint(cook_book)
+
+cokie = get_shop_list_by_dishes(["Омлет", "Запеченный картофель"], 3)
+pprint(cokie)
