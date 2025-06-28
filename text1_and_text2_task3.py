@@ -1,6 +1,9 @@
 from pprint import pprint
 
 def read_file(file_path):
+    """
+    Reading and finding the number of line breaks
+    """
     with open(file_path, "r", encoding="utf-8") as file:
         text = file.read()
     text_list = text.split("\n")
