@@ -51,13 +51,13 @@ def get_cook_book(file_path):
     return(cook_book)
 
 
-def get_shop_list_by_dishes(dishes, person_count, file_path=r"D:\all_homework_project\homework_cook_book\cook_book.txt"):
+def get_shop_list_by_dishes(dishes, person_count, file_path="cook_book.txt"):
     cook_books = get_cook_book(file_path)
 
     shop_list = {}
     for dish in dishes:
         if dish not in cook_books:
-            print(f'Блюдо {dish} отсутствует в книге рецептов!')
+            print (f'Блюдо {dish} отсутствует в книге рецептов!')
             continue
         for ingredient in cook_books[dish]:
             ingredient_name = ingredient["ingredient_name"]
@@ -65,16 +65,17 @@ def get_shop_list_by_dishes(dishes, person_count, file_path=r"D:\all_homework_pr
             quantity = int(ingredient["quantity"]) * person_count
 
             if ingredient_name in shop_list:
-                shop_list[ingredient_name][quantity] += quantity
+                shop_list[ingredient_name]["quantity"] += quantity
             else:
                 shop_list[ingredient_name] = {"quantity": quantity,"measure":measure}
     return shop_list
 
-file_path = r"D:\all_homework_project\homework_cook_book\cook_book.txt"
+file_path = "cook_book.txt"
 cook_book = get_cook_book(file_path)
 # pprint(cook_book)
 
-cokie = get_shop_list_by_dishes(["Омлет", "Запеченный картофель"], 3)
-cokie2 = get_shop_list_by_dishes(["Кракозябра", "Макароны по флотски"], 5)
-pprint(cokie)
-pprint(cokie2)
+cook_1 = get_shop_list_by_dishes(["Омлет", "Запеченный картофель"], 3)
+cook_2 = get_shop_list_by_dishes(["Кракозябра", "Макароны по флотски"], 5)
+
+print(cook_1)
+print(cook_2)
