@@ -1,29 +1,35 @@
 from pprint import pprint
 
-def read_file(file_path):
+
+def read_in_save_dict(file_dict, file_name):
     """
-    Reading and finding the number of line breaks
+    Reads the file, calculates the number of lines, and saves everything to the dictionary
     """
-    with open(file_path, "r", encoding="utf-8") as file:
+    with open(file_name, "r", encoding="utf-8") as file:
         text = file.read()
-    text_list = text.split("\n")
-    len_line = str(len(text_list))
-    return [len_line, text]
+        line_count = text.count("\n") + 1
+    file_dict[file_name] = line_count
 
 
-file_path = r"D:\all_homework_project\homework_cook_book\task_3.txt"
-text1 = read_file(r"D:\all_homework_project\homework_cook_book\1.txt")
-text2 = read_file(r"D:\all_homework_project\homework_cook_book\2.txt")
-text3 = read_file(r"D:\all_homework_project\homework_cook_book\3.txt")
+def sorted_and_write_file (file_dict, new_file):
+    """
+    Sorts the dictionary by key.
+    Opens a file or creates it.
+    Reads a file and writes to a new file
+    """
+    sorted_file_dict = dict(sorted(file_dict.items(), key=lambda item: item[1]))
+    with open(str(new_file), "w", encoding="utf-8") as file_write:
+        for key, values in sorted_file_dict.items():
+            with open(key, "r", encoding="utf-8") as file:
+                text = file.read()
+            file_write.write(f'Имя файла: {key}\n')
+            file_write.write(f'Количество строк: {values}\n')
+            file_write.write(f'Текст файла: \n{text}\n')
+    print(f'Файл успешно сохранен')
+#Проверка работоспособности
+file_dict = {}
+read_in_save_dict(file_dict, "1.txt")
+read_in_save_dict(file_dict, "2.txt")
+read_in_save_dict(file_dict, "3.txt")
 
-with open(file_path, "w", encoding="utf-8") as file_up:
-    file_up.write(f'2.txt\n{text2[0]}\n')
-    file_up.write(text2[1])
-    file_up.write(f'\n1.txt\n{text1[0]}\n')
-    file_up.write(text1[1])
-    file_up.write(f'\n3.txt\n{text3[0]}\n')
-    file_up.write(text3[1])
-
-print(text1)
-print(text2)
-print(text3)
+sorted_and_write_file(file_dict, "task_3.txt")
